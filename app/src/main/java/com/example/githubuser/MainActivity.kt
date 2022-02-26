@@ -2,10 +2,50 @@ package com.example.githubuser
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.githubuser.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+    private val list=ArrayList<User>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding= ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.rvUser.setHasFixedSize(true)
+
+        list.addAll(getListUser())
+        showRecycle()
+    }
+
+    private fun getListUser(): ArrayList<User> {
+        val dataAvatar = resources.obtainTypedArray(R.array.avatar)
+        val dataName = resources.getStringArray(R.array.name)
+        val dataUsername = resources.getStringArray(R.array.username)
+
+        val listUser = ArrayList<User>()
+        dataName.forEachIndexed { position, _ ->
+            val user = User(
+                dataUsername[position],
+                dataName[position],
+                null,
+                null,
+                null,
+                null,
+                null,
+                dataAvatar.getResourceId(position, 0)
+            )
+            listUser.add(user)
+        }
+        dataAvatar.recycle()
+        return listUser
+    }
+
+    private fun showRecycle() {
+        binding.rvUser.layoutManager = LinearLayoutManager(this)
+        val userAdapter = UserAdapter(list)
+        binding.rvUser.adapter = userAdapter
     }
 }
