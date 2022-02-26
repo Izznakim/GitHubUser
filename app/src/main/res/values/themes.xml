@@ -16,8 +16,6 @@
     </style>
 
     <style name="imageAvatar">
-        <item name="android:layout_width">50dp</item>
-        <item name="android:layout_height">50dp</item>
         <item name="android:layout_marginTop">16dp</item>
         <item name="android:layout_marginStart">16dp</item>
         <item name="android:layout_marginBottom">16dp</item>
@@ -26,11 +24,11 @@
     <style name="textTitle">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">16dp</item>
-        <item name="android:layout_marginStart">16dp</item>
-        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/blueGrey_Text</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="textSubtitle">
@@ -38,6 +36,14 @@
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:layout_marginStart">8dp</item>
         <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="textContent">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:gravity">center</item>
         <item name="android:textColor">@color/blueGrey_Text</item>
     </style>
 </resources>

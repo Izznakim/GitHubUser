@@ -24,17 +24,22 @@ class MainActivity : AppCompatActivity() {
         val dataAvatar = resources.obtainTypedArray(R.array.avatar)
         val dataName = resources.getStringArray(R.array.name)
         val dataUsername = resources.getStringArray(R.array.username)
+        val dataLocation = resources.getStringArray(R.array.location)
+        val dataRepository = resources.getStringArray(R.array.repository)
+        val dataCompany = resources.getStringArray(R.array.company)
+        val dataFollowers = resources.getStringArray(R.array.followers)
+        val dataFollowing = resources.getStringArray(R.array.following)
 
         val listUser = ArrayList<User>()
         dataName.forEachIndexed { position, _ ->
             val user = User(
                 dataUsername[position],
                 dataName[position],
-                null,
-                null,
-                null,
-                null,
-                null,
+                dataLocation[position],
+                dataRepository[position],
+                dataCompany[position],
+                dataFollowers[position],
+                dataFollowing[position],
                 dataAvatar.getResourceId(position, 0)
             )
             listUser.add(user)

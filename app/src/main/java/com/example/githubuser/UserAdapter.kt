@@ -1,8 +1,11 @@
 package com.example.githubuser
 
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -19,6 +22,18 @@ class UserAdapter(private val listUser:ArrayList<User>):RecyclerView.Adapter<Use
 
                 tvUsername.text=user.username
                 tvName.text=user.name
+                user.company
+                user.followers
+                user.following
+                user.location
+                user.repository
+
+                itemView.setOnClickListener {
+                    Intent(itemView.context,DetailActivity::class.java).also {
+                        it.putExtra(DetailActivity.EXTRA_USER,user)
+                        itemView.context.startActivity(it)
+                    }
+                }
             }
         }
     }
