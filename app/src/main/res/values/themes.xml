@@ -46,4 +46,8 @@
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/blueGrey_Text</item>
     </style>
+
+    <style name="splashScreenStyle" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
 </resources>

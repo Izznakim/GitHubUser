@@ -38,23 +38,24 @@
 
     <TextView
         android:id="@+id/tvFol"
-        android:layout_width="0dp"
         style="@style/textContent"
+        android:layout_width="0dp"
         android:layout_marginTop="16dp"
-        tools:text="Follower: 99 | Following: 99 | Repository: 100"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        tools:text="Follower: 99 | Following: 99 | Repository: 100" />
 
     <TextView
         android:id="@+id/tvCompRepo"
         style="@style/textContent"
         android:layout_width="0dp"
         android:layout_marginTop="8dp"
-        tools:text="Company"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFol" />
+        app:layout_constraintTop_toBottomOf="@+id/tvFol"
+        tools:text="Company"
+        app:drawableTopCompat="@drawable/ic_baseline_business_24" />
 
     <TextView
         android:id="@+id/tvLocation"
@@ -64,6 +65,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvCompRepo"
+        app:drawableTopCompat="@drawable/ic_baseline_place_24"
         tools:text="Kranji, Paciran, Lamongan" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
