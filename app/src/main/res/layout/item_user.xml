@@ -19,20 +19,12 @@
         android:id="@+id/tvUsername"
         style="@style/textTitle"
         android:layout_width="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgAvatar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imgAvatar"
-        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/imgAvatar"
         tools:text="@tools:sample/first_names" />
-
-    <TextView
-        android:id="@+id/tvName"
-        style="@style/textSubtitle"
-        android:layout_width="0dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imgAvatar"
-        app:layout_constraintTop_toBottomOf="@+id/tvUsername"
-        tools:text="@tools:sample/full_names" />
 
     <View
         android:id="@+id/view"
