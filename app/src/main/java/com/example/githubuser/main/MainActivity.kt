@@ -49,8 +49,11 @@ class MainActivity : AppCompatActivity() {
         searchView.queryHint=resources.getString(R.string.search_hint)
         searchView.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String): Boolean {
-                Toast.makeText(this@MainActivity, query, Toast.LENGTH_SHORT).show()
                 searchView.clearFocus()
+                mainViewModel.getSearchUser(query)
+                mainViewModel.listSearchUser.observe(this@MainActivity){
+                    setListUser(it)
+                }
                 return true
             }
 
@@ -65,8 +68,10 @@ class MainActivity : AppCompatActivity() {
     private fun showLoading(isLoading: Boolean) {
         if (isLoading){
             binding.progressBar.visibility= View.VISIBLE
+            binding.rvUser.visibility= View.GONE
         }else{
             binding.progressBar.visibility=View.GONE
+            binding.rvUser.visibility= View.VISIBLE
         }
     }
 
