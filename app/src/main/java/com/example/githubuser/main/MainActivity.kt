@@ -33,6 +33,10 @@ class MainActivity : AppCompatActivity() {
             setListUser(it)
         }
 
+        mainViewModel.listSearchUser.observe(this){
+            setListUser(it)
+        }
+
         mainViewModel.isLoading.observe(this){
             showLoading(it)
         }
