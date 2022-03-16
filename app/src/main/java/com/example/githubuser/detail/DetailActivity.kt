@@ -103,7 +103,6 @@ class DetailActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_USER = "extra_user"
         const val STATE_RESULT = "state_result"
-        private const val TAG = "DetailActivity"
 
         @StringRes
         private val TAB_TITTLES = intArrayOf(

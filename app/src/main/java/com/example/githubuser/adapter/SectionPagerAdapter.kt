@@ -1,22 +1,24 @@
 package com.example.githubuser.adapter
 
+import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.githubuser.detail.fragment.FollowerFragment
-import com.example.githubuser.detail.fragment.FollowingFragment
+import com.example.githubuser.detail.FollFragment
+import com.example.githubuser.detail.FollFragment.Companion.ARG_SECTION_NUMBER
+import com.example.githubuser.detail.FollFragment.Companion.USERNAME
 
 class SectionPagerAdapter(activity: AppCompatActivity) :
     FragmentStateAdapter(activity) {
     var username:String?=null
 
     override fun createFragment(position: Int): Fragment {
-        var fragment: Fragment? = null
-        when (position) {
-            0 -> fragment = FollowerFragment.newInstance(username.toString())
-            1 -> fragment = FollowingFragment.newInstance(username.toString())
+        val fragment = FollFragment()
+        fragment.arguments= Bundle().apply {
+            putInt(ARG_SECTION_NUMBER, position)
+            putString(USERNAME,username)
         }
-        return fragment as Fragment
+        return fragment
     }
 
     override fun getItemCount(): Int = 2

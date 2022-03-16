@@ -1,34 +1,29 @@
-package com.example.githubuser.detail.fragment
+package com.example.githubuser.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.githubuser.databinding.FragmentFollowerBinding
-import com.example.githubuser.detail.DetailActivity
-import com.example.githubuser.detail.DetailViewModel
+import com.example.githubuser.databinding.FragmentFollBinding
 import com.example.githubuser.main.MainActivity
 
-class FollowerFragment : Fragment() {
+class FollFragment : Fragment() {
 
-    private var _binding:FragmentFollowerBinding?=null
+    private var _binding:FragmentFollBinding?=null
     private val binding get() = _binding!!
     private val detailViewModel by viewModels<DetailViewModel>()
 
     private var isBeenHere: Boolean = false
-    private var username:String?=null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding= FragmentFollowerBinding.inflate(inflater,container,false)
-        username=arguments?.getString(USERNAME)
+        _binding= FragmentFollBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -40,16 +35,22 @@ class FollowerFragment : Fragment() {
             isBeenHere = result
         }
 
+        val index=arguments?.getInt(ARG_SECTION_NUMBER,0)
+        val username=arguments?.getString(USERNAME)
+
         binding.rvUser.layoutManager = LinearLayoutManager(context)
         binding.rvUser.setHasFixedSize(true)
 
-            if (!isBeenHere) {
+        if (!isBeenHere) {
+            if (index == 0) {
                 detailViewModel.getFollower(username.toString())
-                isBeenHere = true
+            } else {
+                detailViewModel.getFollowing(username.toString())
             }
-            Log.d(TAG, "onViewCreated: Follower > $username")
+            isBeenHere = true
+        }
 
-        detailViewModel.listFollower.observe(viewLifecycleOwner){
+        detailViewModel.listFoll.observe(viewLifecycleOwner){
             binding.rvUser.adapter=MainActivity.setListUser(it)
         }
 
@@ -82,15 +83,5 @@ class FollowerFragment : Fragment() {
     companion object{
         const val ARG_SECTION_NUMBER="section_number"
         const val USERNAME="username"
-        private const val TAG = "FollowerFragment"
-
-        fun newInstance(username:String):FollowerFragment{
-            val fragment=FollowerFragment()
-
-            val bundle=Bundle()
-            bundle.putString(USERNAME,username)
-            fragment.arguments=bundle
-            return fragment
-        }
     }
 }

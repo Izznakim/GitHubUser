@@ -15,11 +15,8 @@ class DetailViewModel: ViewModel() {
     private val _detailUser=MutableLiveData<DetailUserResponse>()
     val detailUser:LiveData<DetailUserResponse> =_detailUser
 
-    private val _listFollower=MutableLiveData<List<User>>()
-    val listFollower:LiveData<List<User>> =_listFollower
-
-    private val _listFollowing=MutableLiveData<List<User>>()
-    val listFollowing:LiveData<List<User>> =_listFollowing
+    private val _listFoll=MutableLiveData<List<User>>()
+    val listFoll:LiveData<List<User>> =_listFoll
 
     private val _isLoading=MutableLiveData<Boolean>()
     val isLoading:LiveData<Boolean> =_isLoading
@@ -58,7 +55,7 @@ class DetailViewModel: ViewModel() {
             ) {
                 _isLoading.value=false
                 if (response.isSuccessful){
-                    _listFollower.value=response.body()
+                    _listFoll.value=response.body()
                 }else{
                     Log.e(TAG, "onFailure: ${response.message()}", )
                 }
@@ -82,7 +79,7 @@ class DetailViewModel: ViewModel() {
             ) {
                 _isLoading.value=false
                 if (response.isSuccessful){
-                    _listFollowing.value=response.body()
+                    _listFoll.value=response.body()
                 }else{
                     Log.e(TAG, "onFailure: ${response.message()}", )
                 }
