@@ -4,7 +4,6 @@ import android.app.SearchManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -30,11 +29,11 @@ class MainActivity : AppCompatActivity() {
         binding.rvUser.setHasFixedSize(true)
 
         mainViewModel.listUser.observe(this){
-            setListUser(it)
+            binding.rvUser.adapter = setListUser(it)
         }
 
         mainViewModel.listSearchUser.observe(this){
-            setListUser(it)
+            binding.rvUser.adapter = setListUser(it)
         }
 
         mainViewModel.isLoading.observe(this){
@@ -79,12 +78,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setListUser(users:List<User>) {
-        val listUser=ArrayList<User>()
-        for (user in users){
-            listUser.add(user)
+    companion object{
+        fun setListUser(users: List<User>): UserAdapter {
+            val listUser = ArrayList<User>()
+            for (user in users) {
+                listUser.add(user)
+            }
+            return UserAdapter(listUser)
         }
-        val userAdapter = UserAdapter(listUser)
-        binding.rvUser.adapter = userAdapter
     }
 }
