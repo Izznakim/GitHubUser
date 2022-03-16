@@ -48,7 +48,8 @@ class DetailActivity : AppCompatActivity() {
             detailViewModel.detailUser.observe(this@DetailActivity) { user ->
                 tvName.text = user?.name ?: "null"
                 tvFol.text =
-                    getString(R.string.textfol, user?.followers, user?.following, user?.repository)
+                    getString(R.string.textfol, user?.followers, user?.following)
+                tvRepo.text=getString(R.string.textrepo,user?.repository)
                 tvCompRepo.text = user?.company ?: "null"
                 tvLocation.text = user?.location ?: "null"
             }
