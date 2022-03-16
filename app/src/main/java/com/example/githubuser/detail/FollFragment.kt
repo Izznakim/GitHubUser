@@ -12,7 +12,7 @@ import com.example.githubuser.main.MainActivity
 
 class FollFragment : Fragment() {
 
-    private var _binding:FragmentFollBinding?=null
+    private var _binding: FragmentFollBinding? = null
     private val binding get() = _binding!!
     private val detailViewModel by viewModels<DetailViewModel>()
 
@@ -23,7 +23,7 @@ class FollFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding= FragmentFollBinding.inflate(inflater,container,false)
+        _binding = FragmentFollBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -35,8 +35,8 @@ class FollFragment : Fragment() {
             isBeenHere = result
         }
 
-        val index=arguments?.getInt(ARG_SECTION_NUMBER,0)
-        val username=arguments?.getString(USERNAME)
+        val index = arguments?.getInt(ARG_SECTION_NUMBER, 0)
+        val username = arguments?.getString(USERNAME)
 
         binding.rvUser.layoutManager = LinearLayoutManager(context)
         binding.rvUser.setHasFixedSize(true)
@@ -50,11 +50,11 @@ class FollFragment : Fragment() {
             isBeenHere = true
         }
 
-        detailViewModel.listFoll.observe(viewLifecycleOwner){
-            binding.rvUser.adapter=MainActivity.setListUser(it)
+        detailViewModel.listFoll.observe(viewLifecycleOwner) {
+            binding.rvUser.adapter = MainActivity.setListUser(it)
         }
 
-        detailViewModel.isLoading.observe(viewLifecycleOwner){
+        detailViewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
         }
 
@@ -66,22 +66,22 @@ class FollFragment : Fragment() {
     }
 
     private fun showLoading(isLoading: Boolean) {
-        if (isLoading){
-            binding.progressBar.visibility= View.VISIBLE
-            binding.rvUser.visibility= View.GONE
-        }else{
-            binding.progressBar.visibility=View.GONE
-            binding.rvUser.visibility= View.VISIBLE
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+            binding.rvUser.visibility = View.GONE
+        } else {
+            binding.progressBar.visibility = View.GONE
+            binding.rvUser.visibility = View.VISIBLE
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding=null
+        _binding = null
     }
 
-    companion object{
-        const val ARG_SECTION_NUMBER="section_number"
-        const val USERNAME="username"
+    companion object {
+        const val ARG_SECTION_NUMBER = "section_number"
+        const val USERNAME = "username"
     }
 }

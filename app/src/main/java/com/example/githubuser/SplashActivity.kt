@@ -22,7 +22,7 @@ class SplashActivity : AppCompatActivity() {
         }, TIME_DELAY)
     }
 
-    companion object{
-        const val TIME_DELAY=2000L
+    companion object {
+        const val TIME_DELAY = 2000L
     }
 }

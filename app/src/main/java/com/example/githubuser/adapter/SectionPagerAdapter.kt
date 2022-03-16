@@ -10,13 +10,13 @@ import com.example.githubuser.detail.FollFragment.Companion.USERNAME
 
 class SectionPagerAdapter(activity: AppCompatActivity) :
     FragmentStateAdapter(activity) {
-    var username:String?=null
+    var username: String? = null
 
     override fun createFragment(position: Int): Fragment {
         val fragment = FollFragment()
-        fragment.arguments= Bundle().apply {
+        fragment.arguments = Bundle().apply {
             putInt(ARG_SECTION_NUMBER, position)
-            putString(USERNAME,username)
+            putString(USERNAME, username)
         }
         return fragment
     }

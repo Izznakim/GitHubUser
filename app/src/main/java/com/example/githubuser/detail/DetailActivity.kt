@@ -11,6 +11,7 @@ import com.example.githubuser.R
 import com.example.githubuser.adapter.SectionPagerAdapter
 import com.example.githubuser.databinding.ActivityDetailBinding
 import com.example.githubuser.model.User
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 
 class DetailActivity : AppCompatActivity() {
@@ -39,9 +40,9 @@ class DetailActivity : AppCompatActivity() {
         viewPager(user?.username)
     }
 
-    private fun viewPager(username:String?) {
+    private fun viewPager(username: String?) {
         val sectionsPagerAdapter = SectionPagerAdapter(this)
-        sectionsPagerAdapter.username=username
+        sectionsPagerAdapter.username = username
         with(binding) {
             viewPager.adapter = sectionsPagerAdapter
             TabLayoutMediator(tabs, viewPager) { tab, position ->
@@ -76,6 +77,13 @@ class DetailActivity : AppCompatActivity() {
 
             detailViewModel.isLoading.observe(this@DetailActivity) {
                 showLoading(it)
+            }
+
+            detailViewModel.snackbarText.observe(this@DetailActivity) {
+                it.getContentIfNotHandled()?.let { snackBarText ->
+                    Snackbar.make(window.decorView.rootView, snackBarText, Snackbar.LENGTH_SHORT)
+                        .show()
+                }
             }
         }
     }

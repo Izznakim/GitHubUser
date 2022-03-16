@@ -25,7 +25,7 @@ class UserAdapter(private val listUser: List<User>) :
 
                 itemView.setOnClickListener {
                     Intent(itemView.context, DetailActivity::class.java).also {
-                        it.putExtra(DetailActivity.EXTRA_USER,user)
+                        it.putExtra(DetailActivity.EXTRA_USER, user)
                         itemView.context.startActivity(it)
                     }
                 }

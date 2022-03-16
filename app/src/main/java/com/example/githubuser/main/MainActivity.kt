@@ -13,6 +13,7 @@ import com.example.githubuser.R
 import com.example.githubuser.adapter.UserAdapter
 import com.example.githubuser.databinding.ActivityMainBinding
 import com.example.githubuser.model.User
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -23,38 +24,44 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.title="List User"
+        supportActionBar?.title = "List User"
 
         binding.rvUser.layoutManager = LinearLayoutManager(this)
         binding.rvUser.setHasFixedSize(true)
 
-        mainViewModel.listUser.observe(this){
+        mainViewModel.listUser.observe(this) {
             binding.rvUser.adapter = setListUser(it)
         }
 
-        mainViewModel.listSearchUser.observe(this){
+        mainViewModel.listSearchUser.observe(this) {
             binding.rvUser.adapter = setListUser(it)
         }
 
-        mainViewModel.isLoading.observe(this){
+        mainViewModel.isLoading.observe(this) {
             showLoading(it)
+        }
+
+        mainViewModel.snackbarText.observe(this) {
+            it.getContentIfNotHandled()?.let { snackBarText ->
+                Snackbar.make(window.decorView.rootView, snackBarText, Snackbar.LENGTH_SHORT).show()
+            }
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater=menuInflater
-        inflater.inflate(R.menu.option_menu,menu)
+        val inflater = menuInflater
+        inflater.inflate(R.menu.option_menu, menu)
 
-        val searchManager= getSystemService<SearchManager>()
-        val searchView=menu.findItem(R.id.search).actionView as SearchView
+        val searchManager = getSystemService<SearchManager>()
+        val searchView = menu.findItem(R.id.search).actionView as SearchView
 
         searchView.setSearchableInfo(searchManager?.getSearchableInfo(componentName))
-        searchView.queryHint=resources.getString(R.string.search_hint)
-        searchView.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
+        searchView.queryHint = resources.getString(R.string.search_hint)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 searchView.clearFocus()
                 mainViewModel.getSearchUser(query)
-                mainViewModel.listSearchUser.observe(this@MainActivity){
+                mainViewModel.listSearchUser.observe(this@MainActivity) {
                     setListUser(it)
                 }
                 return true
@@ -69,16 +76,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showLoading(isLoading: Boolean) {
-        if (isLoading){
-            binding.progressBar.visibility= View.VISIBLE
-            binding.rvUser.visibility= View.GONE
-        }else{
-            binding.progressBar.visibility=View.GONE
-            binding.rvUser.visibility= View.VISIBLE
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+            binding.rvUser.visibility = View.GONE
+        } else {
+            binding.progressBar.visibility = View.GONE
+            binding.rvUser.visibility = View.VISIBLE
         }
     }
 
-    companion object{
+    companion object {
         fun setListUser(users: List<User>): UserAdapter {
             val listUser = ArrayList<User>()
             for (user in users) {
