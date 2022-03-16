@@ -1,6 +1,7 @@
 package com.example.githubuser.api
 
 import com.example.githubuser.BuildConfig
+import com.example.githubuser.model.DetailUserResponse
 import com.example.githubuser.model.User
 import com.example.githubuser.model.UserResponse
 import retrofit2.Call
@@ -18,4 +19,9 @@ interface ApiService {
     fun getSearchUser(
         @Query("q") username:String
     ):Call<UserResponse>
+
+    @GET("users/{username}")
+    fun getDetailUser(
+        @Path("username") username: String
+    ):Call<DetailUserResponse>
 }

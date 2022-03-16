@@ -1,71 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.DetailActivity">
+    tools:context=".detail.DetailActivity">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgAvatar"
-        style="@style/imageAvatar"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/avatars" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tvUsername"
-        style="@style/textTitle"
-        android:layout_width="0dp"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgAvatar"
-        tools:text="@tools:sample/first_names" />
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvName"
-        style="@style/textSubtitle"
-        android:layout_width="0dp"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvUsername"
-        tools:text="@tools:sample/full_names" />
+        <LinearLayout
+            android:id="@+id/contentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tvFol"
-        style="@style/textContent"
-        android:layout_width="0dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvName"
-        tools:text="Follower: 99 | Following: 99 | Repository: 100" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgAvatar"
+                style="@style/imageAvatar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                tools:src="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/tvCompRepo"
-        style="@style/textContent"
-        android:layout_width="0dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFol"
-        tools:text="Company"
-        app:drawableTopCompat="@drawable/ic_baseline_business_24" />
+            <TextView
+                android:id="@+id/tvUsername"
+                style="@style/textTitle"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                tools:text="@tools:sample/first_names" />
 
-    <TextView
-        android:id="@+id/tvLocation"
-        style="@style/textContent"
-        android:layout_width="0dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCompRepo"
-        app:drawableTopCompat="@drawable/ic_baseline_place_24"
-        tools:text="Kranji, Paciran, Lamongan" />
+            <TextView
+                android:id="@+id/tvName"
+                style="@style/textSubtitle"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                tools:text="@tools:sample/full_names" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tvFol"
+                style="@style/textContent"
+                android:layout_width="match_parent"
+                android:layout_marginTop="16dp"
+                tools:text="Follower: 99 | Following: 99 | Repository: 100" />
+
+            <TextView
+                android:id="@+id/tvCompRepo"
+                style="@style/textContent"
+                android:layout_width="match_parent"
+                android:layout_marginTop="8dp"
+                app:drawableTopCompat="@drawable/ic_baseline_business_24"
+                tools:text="Company" />
+
+            <TextView
+                android:id="@+id/tvLocation"
+                style="@style/textContent"
+                android:layout_width="match_parent"
+                android:layout_marginTop="8dp"
+                app:drawableTopCompat="@drawable/ic_baseline_place_24"
+                tools:text="Kranji, Paciran, Lamongan" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
