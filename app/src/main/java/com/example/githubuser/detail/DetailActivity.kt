@@ -26,7 +26,7 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.title = "Detail User"
+        supportActionBar?.title = getString(R.string.detailTitle)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         if (savedInstanceState != null) {
