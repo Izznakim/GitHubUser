@@ -1,4 +1,4 @@
-package com.example.githubuser.detail
+package com.example.githubuser.ui.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,13 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuser.databinding.FragmentFollBinding
-import com.example.githubuser.main.MainActivity
+import com.example.githubuser.ui.ViewModelFactory
+import com.example.githubuser.ui.main.MainActivity
 
 class FollFragment : Fragment() {
 
     private var _binding: FragmentFollBinding? = null
     private val binding get() = _binding!!
-    private val detailViewModel by viewModels<DetailViewModel>()
 
     private var isBeenHere: Boolean = false
 
@@ -29,6 +29,11 @@ class FollFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val factory: ViewModelFactory = ViewModelFactory.getInstance(requireContext())
+        val detailViewModel: DetailViewModel by viewModels {
+            factory
+        }
 
         if (savedInstanceState != null) {
             val result = savedInstanceState.getBoolean(DetailActivity.STATE_RESULT)

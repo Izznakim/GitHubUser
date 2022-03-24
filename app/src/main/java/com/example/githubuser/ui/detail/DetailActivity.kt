@@ -1,4 +1,4 @@
-package com.example.githubuser.detail
+package com.example.githubuser.ui.detail
 
 import android.os.Bundle
 import android.view.View
@@ -8,16 +8,16 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.githubuser.R
-import com.example.githubuser.adapter.SectionPagerAdapter
+import com.example.githubuser.data.remote.response.User
 import com.example.githubuser.databinding.ActivityDetailBinding
-import com.example.githubuser.model.User
+import com.example.githubuser.ui.ViewModelFactory
+import com.example.githubuser.ui.adapter.SectionPagerAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
-    private val detailViewModel by viewModels<DetailViewModel>()
 
     private var isBeenHere: Boolean = false
 
@@ -29,6 +29,11 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.title = getString(R.string.detailTitle)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
+        val detailViewModel: DetailViewModel by viewModels {
+            factory
+        }
+
         if (savedInstanceState != null) {
             val result = savedInstanceState.getBoolean(STATE_RESULT)
             isBeenHere = result
@@ -36,7 +41,12 @@ class DetailActivity : AppCompatActivity() {
 
         val user = intent.getParcelableExtra<User>(EXTRA_USER)
 
-        getDetailUser(user)
+        getDetailUser(user, detailViewModel)
+        binding.ivFavorite.setOnClickListener {
+            if (user != null) {
+                detailViewModel.setUserToFavorite(user)
+            }
+        }
         viewPager(user?.username)
     }
 
@@ -53,7 +63,7 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun getDetailUser(user: User?) {
+    private fun getDetailUser(user: User?, detailViewModel: DetailViewModel) {
         with(binding) {
             Glide.with(this@DetailActivity)
                 .load(user?.avatarUrl)

@@ -1,4 +1,4 @@
-package com.example.githubuser.main
+package com.example.githubuser.ui.main
 
 import android.app.SearchManager
 import android.os.Bundle
@@ -10,9 +10,9 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.content.getSystemService
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuser.R
-import com.example.githubuser.adapter.UserAdapter
+import com.example.githubuser.data.remote.response.User
 import com.example.githubuser.databinding.ActivityMainBinding
-import com.example.githubuser.model.User
+import com.example.githubuser.ui.adapter.UserAdapter
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {

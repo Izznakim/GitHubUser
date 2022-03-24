@@ -1,4 +1,4 @@
-package com.example.githubuser.adapter
+package com.example.githubuser.ui.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.githubuser.data.remote.response.User
 import com.example.githubuser.databinding.ItemUserBinding
-import com.example.githubuser.detail.DetailActivity
-import com.example.githubuser.model.User
+import com.example.githubuser.ui.detail.DetailActivity
 
 class UserAdapter(private val listUser: List<User>) :
     RecyclerView.Adapter<UserAdapter.UserViewHolder>() {

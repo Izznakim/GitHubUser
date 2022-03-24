@@ -1,4 +1,4 @@
-package com.example.githubuser
+package com.example.githubuser.utils
 
 open class Event<out T>(private val content: T) {
     @Suppress("MemberVisibilityCanBePrivate")

@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GitHubUser">
         <activity
-            android:name=".SplashActivity"
+            android:name=".ui.SplashActivity"
             android:exported="true"
             android:theme="@style/splashScreenStyle">
             <intent-filter>
@@ -22,10 +22,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".detail.DetailActivity"
+            android:name="com.example.githubuser.ui.detail.DetailActivity"
             android:exported="false" />
         <activity
-            android:name=".main.MainActivity"
+            android:name="com.example.githubuser.ui.main.MainActivity"
             android:exported="false">
         </activity>
     </application>

@@ -1,9 +1,9 @@
-package com.example.githubuser.api
+package com.example.githubuser.data.remote.retrofit
 
 import com.example.githubuser.BuildConfig
-import com.example.githubuser.model.DetailUserResponse
-import com.example.githubuser.model.User
-import com.example.githubuser.model.UserResponse
+import com.example.githubuser.data.remote.response.DetailUserResponse
+import com.example.githubuser.data.remote.response.User
+import com.example.githubuser.data.remote.response.UserResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers

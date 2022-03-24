@@ -1,17 +1,18 @@
-package com.example.githubuser.detail
+package com.example.githubuser.ui.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.githubuser.Event
-import com.example.githubuser.api.ApiConfig
-import com.example.githubuser.model.DetailUserResponse
-import com.example.githubuser.model.User
+import com.example.githubuser.data.FavoriteRespository
+import com.example.githubuser.data.remote.response.DetailUserResponse
+import com.example.githubuser.data.remote.response.User
+import com.example.githubuser.data.remote.retrofit.ApiConfig
+import com.example.githubuser.utils.Event
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailViewModel : ViewModel() {
+class DetailViewModel(private val favoriteRespository: FavoriteRespository) : ViewModel() {
     private val _detailUser = MutableLiveData<DetailUserResponse>()
     val detailUser: LiveData<DetailUserResponse> = _detailUser
 
@@ -94,5 +95,9 @@ class DetailViewModel : ViewModel() {
             }
 
         })
+    }
+
+    fun setUserToFavorite(user: User) {
+        favoriteRespository.setUserToFavorite(user)
     }
 }
