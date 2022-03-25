@@ -1,6 +1,10 @@
 package com.example.githubuser.data.local.room
 
-import androidx.room.*
+import androidx.lifecycle.LiveData
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.example.githubuser.data.local.entity.FavoriteEntity
 
 @Dao
@@ -8,12 +12,12 @@ interface FavoriteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertUserToFavorite(favorite: List<FavoriteEntity>)
 
-    @Update
-    fun updateFavoriteUser(favorite: FavoriteEntity)
+    @Query("SELECT * FROM favorites")
+    fun getListFavorite(): LiveData<List<FavoriteEntity>>
 
-    @Query("SELECT EXISTS(SELECT * FROM favorites WHERE username LIKE '%' || :username || '%')")
-    suspend fun checkExistOrNot(username:String):Boolean
+    @Query("SELECT EXISTS(SELECT * FROM favorites WHERE username = :username)")
+    suspend fun checkExistOrNot(username: String): Boolean
 
-    @Delete
-    fun deleteUserFromFavorite(favorite: FavoriteEntity)
+    @Query("DELETE FROM favorites WHERE username = :username")
+    fun deleteUserFromFavorite(username: String)
 }

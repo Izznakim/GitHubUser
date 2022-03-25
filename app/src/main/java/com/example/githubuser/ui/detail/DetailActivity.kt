@@ -1,7 +1,6 @@
 package com.example.githubuser.ui.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
@@ -10,6 +9,7 @@ import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.githubuser.R
+import com.example.githubuser.data.local.entity.FavoriteEntity
 import com.example.githubuser.data.remote.response.User
 import com.example.githubuser.databinding.ActivityDetailBinding
 import com.example.githubuser.ui.ViewModelFactory
@@ -41,12 +41,21 @@ class DetailActivity : AppCompatActivity() {
             isBeenHere = result
         }
 
-        val user = intent.getParcelableExtra<User>(EXTRA_USER)
+        val isFavorite = intent.getBooleanExtra(EXTRA_ISFAVORITE, false)
 
-        if (user != null) {
-            getDetailUser(user, detailViewModel)
+        if (!isFavorite) {
+            val user = intent.getParcelableExtra<User>(EXTRA_USER)
+            if (user != null) {
+                getDetailUser(user, null, detailViewModel)
+                viewPager(user.username)
+            }
+        } else {
+            val favorite = intent.getParcelableExtra<FavoriteEntity>(EXTRA_USER)
+            if (favorite != null) {
+                getDetailUser(null, favorite, detailViewModel)
+                viewPager(favorite.username)
+            }
         }
-        viewPager(user?.username)
     }
 
     private fun viewPager(username: String?) {
@@ -62,15 +71,21 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun getDetailUser(user: User?, detailViewModel: DetailViewModel) {
-        var favorite =false
+    private fun getDetailUser(
+        user: User? = null,
+        favoriteEntity: FavoriteEntity? = null,
+        detailViewModel: DetailViewModel
+    ) {
+        var favorite = false
+        val username = user?.username ?: favoriteEntity?.username
+        val avatarUrl = user?.avatarUrl ?: favoriteEntity?.avatarUrl
         with(binding) {
             Glide.with(this@DetailActivity)
-                .load(user?.avatarUrl)
+                .load(avatarUrl)
                 .apply(RequestOptions())
                 .into(imgAvatar)
 
-            tvUsername.text = user?.username
+            tvUsername.text = username
 
             if (!isBeenHere) {
                 detailViewModel.getDetailUser(tvUsername.text.toString())
@@ -96,7 +111,7 @@ class DetailActivity : AppCompatActivity() {
                 }
             }
 
-            user?.username?.let { detailViewModel.checkExistOrNot(it) }
+            username?.let { detailViewModel.checkExistOrNot(it) }
             detailViewModel.isFavorite.observe(this@DetailActivity) { isFavorite ->
                 if (isFavorite) {
                     favorite=true
@@ -108,9 +123,9 @@ class DetailActivity : AppCompatActivity() {
             }
 
             binding.ivFavorite.setOnClickListener {
-                if (user!=null) {
+                if (username != null) {
                     favorite = if (favorite) {
-                        detailViewModel.deleteUserFromFavorite(user)
+                        detailViewModel.deleteUserFromFavorite(username)
                         binding.ivFavorite.setImageDrawable(
                             ResourcesCompat.getDrawable(
                                 resources,
@@ -120,7 +135,9 @@ class DetailActivity : AppCompatActivity() {
                         )
                         false
                     } else {
-                        detailViewModel.setUserToFavorite(user)
+                        if (user != null || favoriteEntity != null) {
+                            detailViewModel.setUserToFavorite(user, favoriteEntity)
+                        }
                         binding.ivFavorite.setImageDrawable(
                             ResourcesCompat.getDrawable(
                                 resources,
@@ -157,8 +174,8 @@ class DetailActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_USER = "extra_user"
+        const val EXTRA_ISFAVORITE = "extra_isfavorite"
         const val STATE_RESULT = "state_result"
-        private const val TAG = "DetailActivity"
 
         @StringRes
         private val TAB_TITTLES = intArrayOf(

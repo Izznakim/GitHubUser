@@ -1,8 +1,10 @@
 package com.example.githubuser.ui.main
 
 import android.app.SearchManager
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +15,7 @@ import com.example.githubuser.R
 import com.example.githubuser.data.remote.response.User
 import com.example.githubuser.databinding.ActivityMainBinding
 import com.example.githubuser.ui.adapter.UserAdapter
+import com.example.githubuser.ui.favorite.FavoriteActivity
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
@@ -73,6 +76,18 @@ class MainActivity : AppCompatActivity() {
 
         })
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.favorite -> {
+                Intent(this, FavoriteActivity::class.java).also {
+                    startActivity(it)
+                }
+                true
+            }
+            else -> true
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {

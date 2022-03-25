@@ -8,4 +8,9 @@
         android:title="@string/search_user"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/favorite"
+        android:icon="@drawable/ic_favorited"
+        android:title="@string/list_favorite"
+        app:showAsAction="ifRoom" />
 </menu>

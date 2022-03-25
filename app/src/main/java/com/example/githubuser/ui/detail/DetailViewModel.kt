@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.githubuser.data.FavoriteRespository
+import com.example.githubuser.data.FavoriteRepository
 import com.example.githubuser.data.local.entity.FavoriteEntity
 import com.example.githubuser.data.remote.response.DetailUserResponse
 import com.example.githubuser.data.remote.response.User
@@ -15,7 +15,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailViewModel(private val favoriteRespository: FavoriteRespository) : ViewModel() {
+class DetailViewModel(private val favoriteRepository: FavoriteRepository) : ViewModel() {
     private val _detailUser = MutableLiveData<DetailUserResponse>()
     val detailUser: LiveData<DetailUserResponse> = _detailUser
 
@@ -103,17 +103,17 @@ class DetailViewModel(private val favoriteRespository: FavoriteRespository) : Vi
         })
     }
 
-    fun setUserToFavorite(user: User) {
-        favoriteRespository.setUserToFavorite(user)
+    fun setUserToFavorite(user: User? = null, favoriteEntity: FavoriteEntity? = null) {
+        favoriteRepository.setUserToFavorite(user, favoriteEntity)
     }
 
-    fun deleteUserFromFavorite(user: User){
-        favoriteRespository.deleteUserFromFavorite(user)
+    fun deleteUserFromFavorite(username: String) {
+        favoriteRepository.deleteUserFromFavorite(username)
     }
 
-    fun checkExistOrNot(username: String){
+    fun checkExistOrNot(username: String) {
         viewModelScope.launch {
-           _isFavorite.value= favoriteRespository.checkExistOrNot(username)
+            _isFavorite.value = favoriteRepository.checkExistOrNot(username)
         }
     }
 }

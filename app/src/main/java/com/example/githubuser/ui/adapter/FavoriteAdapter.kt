@@ -6,27 +6,27 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.githubuser.data.remote.response.User
+import com.example.githubuser.data.local.entity.FavoriteEntity
 import com.example.githubuser.databinding.ItemUserBinding
 import com.example.githubuser.ui.detail.DetailActivity
 
-class UserAdapter(private val listUser: List<User>) :
-    RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
+class FavoriteAdapter(private val listFavorite: List<FavoriteEntity>) :
+    RecyclerView.Adapter<FavoriteAdapter.UserViewHolder>() {
     class UserViewHolder(private val binding: ItemUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: User) {
+        fun bind(favorite: FavoriteEntity) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load(user.avatarUrl)
+                    .load(favorite.avatarUrl)
                     .apply(RequestOptions())
                     .into(imgAvatar)
 
-                tvUsername.text = user.username
+                tvUsername.text = favorite.username
 
                 itemView.setOnClickListener {
                     Intent(itemView.context, DetailActivity::class.java).also {
-                        it.putExtra(DetailActivity.EXTRA_USER, user)
-                        it.putExtra(DetailActivity.EXTRA_ISFAVORITE, false)
+                        it.putExtra(DetailActivity.EXTRA_USER, favorite)
+                        it.putExtra(DetailActivity.EXTRA_ISFAVORITE, true)
                         itemView.context.startActivity(it)
                     }
                 }
@@ -40,7 +40,7 @@ class UserAdapter(private val listUser: List<User>) :
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) =
-        holder.bind(listUser[position])
+        holder.bind(listFavorite[position])
 
-    override fun getItemCount(): Int = listUser.size
+    override fun getItemCount(): Int = listFavorite.size
 }
