@@ -3,11 +3,14 @@ package com.example.githubuser.ui.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.githubuser.data.FavoriteRespository
+import com.example.githubuser.data.local.entity.FavoriteEntity
 import com.example.githubuser.data.remote.response.DetailUserResponse
 import com.example.githubuser.data.remote.response.User
 import com.example.githubuser.data.remote.retrofit.ApiConfig
 import com.example.githubuser.utils.Event
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,6 +24,9 @@ class DetailViewModel(private val favoriteRespository: FavoriteRespository) : Vi
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _isFavorite = MutableLiveData<Boolean>()
+    val isFavorite: LiveData<Boolean> = _isFavorite
 
     private val _snackbarText = MutableLiveData<Event<String>>()
     val snackbarText: LiveData<Event<String>> = _snackbarText
@@ -99,5 +105,15 @@ class DetailViewModel(private val favoriteRespository: FavoriteRespository) : Vi
 
     fun setUserToFavorite(user: User) {
         favoriteRespository.setUserToFavorite(user)
+    }
+
+    fun deleteUserFromFavorite(user: User){
+        favoriteRespository.deleteUserFromFavorite(user)
+    }
+
+    fun checkExistOrNot(username: String){
+        viewModelScope.launch {
+           _isFavorite.value= favoriteRespository.checkExistOrNot(username)
+        }
     }
 }

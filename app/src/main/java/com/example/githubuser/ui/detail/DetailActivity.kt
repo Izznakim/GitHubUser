@@ -1,10 +1,12 @@
 package com.example.githubuser.ui.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.githubuser.R
@@ -41,11 +43,8 @@ class DetailActivity : AppCompatActivity() {
 
         val user = intent.getParcelableExtra<User>(EXTRA_USER)
 
-        getDetailUser(user, detailViewModel)
-        binding.ivFavorite.setOnClickListener {
-            if (user != null) {
-                detailViewModel.setUserToFavorite(user)
-            }
+        if (user != null) {
+            getDetailUser(user, detailViewModel)
         }
         viewPager(user?.username)
     }
@@ -64,6 +63,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun getDetailUser(user: User?, detailViewModel: DetailViewModel) {
+        var favorite =false
         with(binding) {
             Glide.with(this@DetailActivity)
                 .load(user?.avatarUrl)
@@ -95,6 +95,43 @@ class DetailActivity : AppCompatActivity() {
                         .show()
                 }
             }
+
+            user?.username?.let { detailViewModel.checkExistOrNot(it) }
+            detailViewModel.isFavorite.observe(this@DetailActivity) { isFavorite ->
+                if (isFavorite) {
+                    favorite=true
+                    binding.ivFavorite.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_favorited,null))
+                } else {
+                    favorite=false
+                    binding.ivFavorite.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_favorite, null))
+                }
+            }
+
+            binding.ivFavorite.setOnClickListener {
+                if (user!=null) {
+                    favorite = if (favorite) {
+                        detailViewModel.deleteUserFromFavorite(user)
+                        binding.ivFavorite.setImageDrawable(
+                            ResourcesCompat.getDrawable(
+                                resources,
+                                R.drawable.ic_favorite,
+                                null
+                            )
+                        )
+                        false
+                    } else {
+                        detailViewModel.setUserToFavorite(user)
+                        binding.ivFavorite.setImageDrawable(
+                            ResourcesCompat.getDrawable(
+                                resources,
+                                R.drawable.ic_favorited,
+                                null
+                            )
+                        )
+                        true
+                    }
+                }
+            }
         }
     }
 
@@ -121,6 +158,7 @@ class DetailActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_USER = "extra_user"
         const val STATE_RESULT = "state_result"
+        private const val TAG = "DetailActivity"
 
         @StringRes
         private val TAB_TITTLES = intArrayOf(

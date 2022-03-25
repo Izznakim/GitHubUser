@@ -6,6 +6,7 @@ import com.example.githubuser.data.local.room.FavoriteDao
 import com.example.githubuser.data.remote.response.User
 import com.example.githubuser.data.remote.retrofit.ApiService
 import com.example.githubuser.utils.AppExecutors
+import kotlinx.coroutines.Deferred
 
 class FavoriteRespository private constructor(
     private val apiService: ApiService,
@@ -15,11 +16,22 @@ class FavoriteRespository private constructor(
     private val result = MediatorLiveData<Result<List<FavoriteEntity>>>()
 
     fun setUserToFavorite(user: User) {
-        val favorite = FavoriteEntity(user.username, user.avatarUrl)
-        val favoriteList = ArrayList<FavoriteEntity>()
         appExecutors.diskIO.execute {
+            val favorite = FavoriteEntity(user.username, user.avatarUrl)
+            val favoriteList = ArrayList<FavoriteEntity>()
             favoriteList.add(favorite)
             favoriteDao.insertUserToFavorite(favoriteList)
+        }
+    }
+
+    suspend fun checkExistOrNot(username:String):Boolean {
+        return favoriteDao.checkExistOrNot(username)
+    }
+
+    fun deleteUserFromFavorite(user: User) {
+        appExecutors.diskIO.execute {
+            val favorite = FavoriteEntity(user.username, user.avatarUrl)
+            favoriteDao.deleteUserFromFavorite(favorite)
         }
     }
 

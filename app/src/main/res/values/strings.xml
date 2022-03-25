@@ -8,4 +8,5 @@
     <string name="following">Following</string>
     <string name="detailTitle">Detail User</string>
     <string name="mainTitle">List User</string>
+    <string name="favorite_button">Favorite Button</string>
 </resources>
