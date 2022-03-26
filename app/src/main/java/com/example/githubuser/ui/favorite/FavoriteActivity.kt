@@ -24,14 +24,13 @@ class FavoriteActivity : AppCompatActivity() {
         binding = ActivityFavoriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.title = getString(R.string.list_favorite)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
         val favoriteViewModel: FavoriteViewModel by viewModels {
             factory
         }
-
-        supportActionBar?.title = getString(R.string.list_favorite)
 
         binding.rvUser.layoutManager = LinearLayoutManager(this)
         binding.rvUser.setHasFixedSize(true)
