@@ -104,11 +104,15 @@ class DetailViewModel(private val favoriteRepository: FavoriteRepository) : View
     }
 
     fun setUserToFavorite(user: User? = null, favoriteEntity: FavoriteEntity? = null) {
-        favoriteRepository.setUserToFavorite(user, favoriteEntity)
+        viewModelScope.launch {
+            favoriteRepository.setUserToFavorite(user, favoriteEntity)
+        }
     }
 
     fun deleteUserFromFavorite(username: String) {
-        favoriteRepository.deleteUserFromFavorite(username)
+        viewModelScope.launch {
+            favoriteRepository.deleteUserFromFavorite(username)
+        }
     }
 
     fun checkExistOrNot(username: String) {

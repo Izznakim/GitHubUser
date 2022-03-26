@@ -10,7 +10,7 @@ import com.example.githubuser.data.local.entity.FavoriteEntity
 @Dao
 interface FavoriteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertUserToFavorite(favorite: List<FavoriteEntity>)
+    suspend fun insertUserToFavorite(favorite: List<FavoriteEntity>)
 
     @Query("SELECT * FROM favorites")
     fun getListFavorite(): LiveData<List<FavoriteEntity>>
@@ -19,5 +19,5 @@ interface FavoriteDao {
     suspend fun checkExistOrNot(username: String): Boolean
 
     @Query("DELETE FROM favorites WHERE username = :username")
-    fun deleteUserFromFavorite(username: String)
+    suspend fun deleteUserFromFavorite(username: String)
 }
