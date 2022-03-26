@@ -1,6 +1,7 @@
 package com.example.githubuser.ui.main
 
 import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -16,6 +17,7 @@ import com.example.githubuser.data.remote.response.User
 import com.example.githubuser.databinding.ActivityMainBinding
 import com.example.githubuser.ui.adapter.UserAdapter
 import com.example.githubuser.ui.favorite.FavoriteActivity
+import com.example.githubuser.ui.settings.SettingsActivity
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
@@ -54,6 +56,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.option_menu, menu)
+        inflater.inflate(R.menu.setting_menu, menu)
 
         val searchManager = getSystemService<SearchManager>()
         val searchView = menu.findItem(R.id.search).actionView as SearchView
@@ -86,6 +89,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 true
             }
+            R.id.settings -> {
+                toSettings(this)
+                true
+            }
             else -> true
         }
     }
@@ -107,6 +114,12 @@ class MainActivity : AppCompatActivity() {
                 listUser.add(user)
             }
             return UserAdapter(listUser)
+        }
+
+        fun toSettings(context: Context) {
+            Intent(context, SettingsActivity::class.java).also {
+                context.startActivity(it)
+            }
         }
     }
 }

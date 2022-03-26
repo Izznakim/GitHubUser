@@ -10,4 +10,6 @@
     <string name="mainTitle">List User</string>
     <string name="favorite_button">Favorite Button</string>
     <string name="list_favorite">List Favorite</string>
+    <string name="settings">Settings</string>
+    <string name="switch_theme">Switch Theme</string>
 </resources>

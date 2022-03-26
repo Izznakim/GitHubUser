@@ -1,6 +1,8 @@
 package com.example.githubuser.ui.detail
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
@@ -14,6 +16,7 @@ import com.example.githubuser.data.remote.response.User
 import com.example.githubuser.databinding.ActivityDetailBinding
 import com.example.githubuser.ui.ViewModelFactory
 import com.example.githubuser.ui.adapter.SectionPagerAdapter
+import com.example.githubuser.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -55,6 +58,25 @@ class DetailActivity : AppCompatActivity() {
                 getDetailUser(null, favorite, detailViewModel)
                 viewPager(favorite.username)
             }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.setting_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.settings -> {
+                MainActivity.toSettings(this)
+                true
+            }
+            android.R.id.home -> {
+                onSupportNavigateUp()
+            }
+            else -> true
         }
     }
 
