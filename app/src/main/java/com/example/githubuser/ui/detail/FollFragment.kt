@@ -57,6 +57,11 @@ class FollFragment : Fragment() {
 
         detailViewModel.listFoll.observe(viewLifecycleOwner) {
             binding.rvUser.adapter = MainActivity.setListUser(it)
+            if (it.isEmpty()) {
+                binding.tvEmptyData.visibility = View.VISIBLE
+            } else {
+                binding.tvEmptyData.visibility = View.GONE
+            }
         }
 
         detailViewModel.isLoading.observe(viewLifecycleOwner) {

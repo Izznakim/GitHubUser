@@ -114,12 +114,12 @@ class DetailActivity : AppCompatActivity() {
                 isBeenHere = true
             }
             detailViewModel.detailUser.observe(this@DetailActivity) { user ->
-                tvName.text = user?.name ?: "null"
+                tvName.text = user?.name ?: "\"Data Kosong\""
                 tvFol.text =
                     getString(R.string.textfol, user?.followers, user?.following)
                 tvRepo.text = getString(R.string.textrepo, user?.repository)
-                tvCompRepo.text = user?.company ?: "null"
-                tvLocation.text = user?.location ?: "null"
+                tvCompRepo.text = user?.company ?: "\"Data Kosong\""
+                tvLocation.text = user?.location ?: "\"Data Kosong\""
             }
 
             detailViewModel.isLoading.observe(this@DetailActivity) {

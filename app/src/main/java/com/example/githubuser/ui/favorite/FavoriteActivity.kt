@@ -84,8 +84,12 @@ class FavoriteActivity : AppCompatActivity() {
 
     private fun setListFavorite(favorites: List<FavoriteEntity>): FavoriteAdapter {
         val listFavorite = ArrayList<FavoriteEntity>()
-        for (favorite in favorites) {
-            listFavorite.add(favorite)
+        if (favorites.isNotEmpty()) {
+            for (favorite in favorites) {
+                listFavorite.add(favorite)
+            }
+        } else {
+            binding.tvEmptyData.visibility = View.VISIBLE
         }
         return FavoriteAdapter(listFavorite)
     }

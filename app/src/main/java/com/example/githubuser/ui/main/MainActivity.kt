@@ -40,6 +40,11 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel.listSearchUser.observe(this) {
             binding.rvUser.adapter = setListUser(it)
+            if (it.isEmpty()) {
+                binding.tvEmptyData.visibility = View.VISIBLE
+            } else {
+                binding.tvEmptyData.visibility = View.GONE
+            }
         }
 
         mainViewModel.isLoading.observe(this) {
