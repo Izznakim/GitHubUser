@@ -34,10 +34,6 @@ class MainActivity : AppCompatActivity() {
         binding.rvUser.layoutManager = LinearLayoutManager(this)
         binding.rvUser.setHasFixedSize(true)
 
-        mainViewModel.listUser.observe(this) {
-            binding.rvUser.adapter = setListUser(it)
-        }
-
         mainViewModel.listSearchUser.observe(this) {
             binding.rvUser.adapter = setListUser(it)
             if (it.isEmpty()) {
@@ -55,6 +51,14 @@ class MainActivity : AppCompatActivity() {
             it.getContentIfNotHandled()?.let { snackBarText ->
                 Snackbar.make(window.decorView.rootView, snackBarText, Snackbar.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        mainViewModel.listUser.observe(this) {
+            binding.rvUser.adapter = setListUser(it)
         }
     }
 
